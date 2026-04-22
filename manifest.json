@@ -1,0 +1,15 @@
+{
+  "name": "Fluids Technology Adaptive LMS",
+  "short_name": "Fluids LMS",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070c18",
+  "theme_color": "#070c18",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
