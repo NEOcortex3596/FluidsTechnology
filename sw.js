@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mechrofluids-v5'; // Change this number every time you update index.html
+const CACHE_NAME = 'mechrofluids-v6'; // Change this number every time you update index.html
 const urlsToCache = [
   './',
   './index.html',
