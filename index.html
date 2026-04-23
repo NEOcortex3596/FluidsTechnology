@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MechroFluids | Electro-Pneumatics & Fluids Technology Reviewer</title>
+<title>HydroLMS | MechroFluids Electro-Pneumatics & Fluids Technology Reviewer</title>
 <meta name="description" content="An adaptive level reviewer for Fluids Technology. Questions on electro-pneumatics, compressors, and actuators with spaced repetition.">
 <meta name="keywords" content="Fluids Technology, Electro-pneumatics, Midterm Reviewer, Engineering">
 
@@ -1295,7 +1295,7 @@ function startQuiz() {
   if(filtered.length === 0) return;
 
   // Reset global flags
-  leitnerMode    = false;
+  leitnerMode     = false;
   adaptiveMode   = false;
   leitnerMastered = leitnerTotal = leitnerAttempts = leitnerCorrect = 0;
   currentIdx     = 0;
@@ -1315,6 +1315,12 @@ function startQuiz() {
 
   // BREATHE SCREEN → then launch quiz
   showBreatheScreen(() => {
+    
+    // 🟢 NEW FLASHCARD MODE LINES GO HERE:
+    document.getElementById('screen-home').style.display = 'none'; // Hide Home completely
+    window.scrollTo(0, 0); // Snap camera to the top
+    // ------------------------------------
+
     showScreen("screen-quiz");
     document.getElementById("hdr-score").classList.add("vis");
     document.getElementById("hdr-badge").textContent =
@@ -1811,6 +1817,10 @@ function goHome() {
   document.getElementById("hdr-badge").textContent = `${QUESTIONS.length} Questions`;
   showScreen("screen-home");
   renderHome();
+
+  // 🟢 NEW: Bring the Home screen back to life from Flashcard Mode
+  document.getElementById('screen-home').style.display = 'block';
+  window.scrollTo(0, 0);
 }
 
 function retakeQuiz() {
