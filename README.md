@@ -7,6 +7,8 @@
 [![Open App](https://img.shields.io/badge/Launch%20HydroLMS-Open%20App-%23f59e0b?style=for-the-badge&logo=googlechrome&logoColor=black)](https://neocortex3596.github.io/FluidsTechnology/)
 [![PWA Ready](https://img.shields.io/badge/Progressive%20Web%20App-Installable-%2322d3ee?style=for-the-badge&logo=pwa&logoColor=white)](https://neocortex3596.github.io/FluidsTechnology/)
 
+![HydroLMS App Preview](preview.png)
+
 **A free, offline-capable adaptive reviewer for engineering students tackling Fluids Technology and Electro-Pneumatics.**
 
 </div>
