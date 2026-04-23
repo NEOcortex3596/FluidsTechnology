@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mechrofluids-v10'; // Updated for the new Icon assets
+const CACHE_NAME = 'mechrofluids-v11'; // Updated for the new Icon assets
 const urlsToCache = [
   './',
   './index.html',
