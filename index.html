@@ -1986,7 +1986,9 @@ function endBrainBreak() {
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
-  window.scrollTo(0,0);
+  
+  // 🟢 FORCES an instant teleport, killing the smooth slide animation
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 // ═══════════════════════════════════════════════════════════
