@@ -1,8 +1,12 @@
-const CACHE_NAME = 'mechrofluids-v6'; // Change this number every time you update index.html
+const CACHE_NAME = 'mechrofluids-v7'; // Updated for the new Icon assets
 const urlsToCache = [
   './',
   './index.html',
-  './manifest.json'
+  './manifest.json',
+  './favicon.ico',
+  './apple-touch-icon.png',
+  './android-chrome-192x192.png',
+  './android-chrome-512x512.png'
 ];
 
 // Install Event: Forces the new worker to take over immediately
