@@ -1,6 +1,6 @@
 {
-  "name": "Fluids Technology Adaptive LMS",
-  "short_name": "Fluids LMS",
+  "name": "MechroFluids: Engineering Reviewer",
+  "short_name": "MechroFluids",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#070c18",
