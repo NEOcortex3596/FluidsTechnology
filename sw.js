@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fluids-lms-v2';
+const CACHE_NAME = 'fluids-lms-v3';
 const urlsToCache = [
   './',
   './index.html',
