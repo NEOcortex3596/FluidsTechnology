@@ -1,4 +1,4 @@
-# ⚗️ HydroLMS — Fluids Technology & Electro-Pneumatics Reviewer
+# ⚗️ HydroLMS — MechroFluids | Fluids Technology & Electro-Pneumatics Reviewer
 
 <div align="center">
 
@@ -6,9 +6,8 @@
 
 [![Open App](https://img.shields.io/badge/Launch%20HydroLMS-Open%20App-%23f59e0b?style=for-the-badge&logo=googlechrome&logoColor=black)](https://neocortex3596.github.io/FluidsTechnology/)
 [![PWA Ready](https://img.shields.io/badge/Progressive%20Web%20App-Installable-%2322d3ee?style=for-the-badge&logo=pwa&logoColor=white)](https://neocortex3596.github.io/FluidsTechnology/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-emerald?style=for-the-badge)](LICENSE)
 
-**The #1 free adaptive learning tool for Mechatronics and Mechanical Engineering board exam preparation.**
+**A free, offline-capable adaptive reviewer for engineering students tackling Fluids Technology and Electro-Pneumatics.**
 
 </div>
 
@@ -16,133 +15,99 @@
 
 ## 📖 What is HydroLMS?
 
-**HydroLMS** is a free, open-source **Progressive Web App (PWA)** purpose-built for engineering students preparing for licensure exams in the Philippines and beyond. It is the ultimate **Fluids Technology board exam reviewer** and **Electro-Pneumatics quiz** platform — combining modern adaptive learning algorithms with a clean, distraction-free interface.
+**HydroLMS** is the reviewer app built under the **MechroFluids** project — a free **Progressive Web App (PWA)** designed for engineering students who need a smarter, more structured way to study Fluids Technology and Electro-Pneumatics.
 
-Whether you're cramming for your Mechatronics Engineering board exam or doing a deep dive into fluid power systems, HydroLMS meets you where you are and pushes you to mastery.
+It runs entirely in the browser with no frameworks, no backend, and no account required. Once loaded, it works fully offline — making it a reliable study companion whether you're in a library, on a commute, or anywhere without a stable connection.
 
 ---
 
-## ✨ Key Features
+## ✨ What's Inside
 
-| Feature | Description |
+| Feature | How It Works |
 |---|---|
-| 🧠 **Adaptive Learning** | Our smart engine tracks your weak spots and automatically serves you more of the questions you get wrong — ensuring you spend time where it matters most. |
-| 🃏 **Leitner Spaced Repetition** | A digital flashcard system based on the proven Leitner method. Questions you master move to longer review intervals; questions you miss cycle back immediately. |
-| 🌊 **Fluids Technology board exam reviewer** | Comprehensive question bank covering hydraulics, pneumatics, fluid statics, fluid dynamics, compressors, and actuators — aligned with board exam coverage. |
-| ⚡ **Electro-Pneumatics Quiz** | Dedicated topic modules for solenoid valves, directional control, ladder logic, and electro-pneumatic circuit analysis. |
-| 🎯 **Mechatronics engineering study tool** | Targeted practice for students enrolled in or preparing for Mechatronics Engineering programs, with topics mapped to CHED and PRC curricula. |
-| 📱 **Progressive Web App** | Install directly on your Android or iOS home screen — no app store required. Works fully offline after first load. |
-| 🍅 **Pomodoro Focus Timer** | Built-in Pomodoro timer to keep study sessions structured and sustainable. |
-| 🫁 **Breathing Exercise Modal** | Pre-quiz breathing guide to help you enter a calm, focused state before tackling hard questions. |
-| 💾 **Auto-Save Sessions** | Never lose your progress. Your quiz session is silently saved every 2 seconds to localStorage and restored on your next visit. |
-| ⌨️ **Full Keyboard Navigation** | Power users can answer with `A/B/C/D`, navigate with arrow keys, and quit with `Escape`. |
+| 🧠 **Adaptive Quiz Mode** | Tracks every question you get wrong and increases its frequency in your session — so you drill your weak spots automatically, not randomly. |
+| 🃏 **Leitner Spaced Repetition** | A digital implementation of the Leitner flashcard system. Answer correctly and a card moves to a longer interval box. Answer wrong and it resets to Box 1. |
+| 🎯 **Topic Selection** | Choose specific topics to review instead of going through everything — useful for targeted studying before a specific exam or class. |
+| 🔥 **Difficulty Filtering** | Filter questions by Easy, Moderate, or Hard before starting a session. |
+| 🍅 **Pomodoro Focus Timer** | Built-in Pomodoro timer to break study time into focused intervals with structured breaks. |
+| 🫁 **Pre-Quiz Breathing Guide** | A short breathing exercise modal that activates before each quiz to help you start calm and focused. |
+| 💾 **Auto-Save** | Your session is silently saved to `localStorage` every 2 seconds. Close the tab and pick up exactly where you left off. |
+| ⌨️ **Keyboard Navigation** | Answer with `A` `B` `C` `D`, move forward with `Enter` or `→`, go back with `←`, and quit with `Escape`. |
+| 📱 **Installable PWA** | Add to your home screen on Android or iOS — runs in full-screen mode just like a native app. |
 
 ---
 
-## 🎓 Topic Coverage
+## 🎓 Topics Covered
 
-HydroLMS currently covers the following subject areas:
+The reviewer currently covers questions across these subject areas:
 
 - **Fluid Statics** — pressure, buoyancy, manometry
 - **Fluid Dynamics** — Bernoulli's theorem, continuity equation, flow measurement
-- **Hydraulic Systems** — pumps, cylinders, valves, circuits
-- **Pneumatic Systems** — compressors, FRLs, actuators, control valves
-- **Electro-Pneumatics** — solenoid valves, relay logic, PLC-controlled circuits
+- **Hydraulic Systems** — pumps, cylinders, valves, hydraulic circuits
+- **Pneumatic Systems** — compressors, FRL units, actuators, directional control valves
+- **Electro-Pneumatics** — solenoid valves, relay logic, electro-pneumatic circuit control
 - **Fluid Mechanics Fundamentals** — viscosity, Reynolds number, pipe flow
-
-More topics and questions are added regularly.
 
 ---
 
-## 🚀 Getting Started
+## 🚀 How to Use
 
-### Use It Online (Recommended)
-
-**No installation needed.** Just open the app in any modern browser:
+### In the Browser
+No installation needed — just open it:
 
 > ### 👉 [https://neocortex3596.github.io/FluidsTechnology/](https://neocortex3596.github.io/FluidsTechnology/)
 
-### Install as a PWA (Mobile / Desktop)
+### Install to Your Home Screen (PWA)
 
-HydroLMS is a fully installable **Progressive Web App**. To install:
+**Android (Chrome):** Open the link → three-dot menu → **"Add to Home Screen"**
 
-1. **Android (Chrome):** Open the link → tap the three-dot menu → **"Add to Home Screen"**
-2. **iOS (Safari):** Open the link → tap the Share button → **"Add to Home Screen"**
-3. **Desktop (Chrome/Edge):** Look for the install icon (⊕) in the address bar → click **"Install"**
+**iOS (Safari):** Open the link → Share button → **"Add to Home Screen"**
 
-Once installed, the app runs in full-screen mode and works **100% offline**.
+**Desktop (Chrome / Edge):** Look for the **⊕** install icon in the address bar → click **"Install"**
+
+Once installed, the app works completely offline.
 
 ### Run Locally
 
 ```bash
 git clone https://github.com/neocortex3596/FluidsTechnology.git
 cd FluidsTechnology
-# Open index.html directly in your browser, or serve with any static file server:
+# Open index.html in your browser directly, or use any static server:
 npx serve .
 ```
 
 ---
 
-## 🧠 How the Adaptive Learning Engine Works
+## 🛠️ Tech Stack
 
-HydroLMS uses a two-tier **adaptive learning** system:
-
-1. **Adaptive Quiz Mode** — Questions are drawn from a dynamic pool. Every time you answer incorrectly, that question's weight in the pool increases, making it more likely to reappear. Every time you answer correctly three times in a row (a "streak"), it graduates out of the high-priority pool.
-
-2. **Leitner System Mode** — All questions start in Box 1. Correct answers promote a question to the next box (longer recall interval). Wrong answers demote a question back to Box 1. Sessions are generated to show you Box 1 cards most frequently, creating a scientifically backed **spaced repetition** schedule.
-
-This dual approach is modeled after research-backed memory retention techniques used in medical and engineering licensure review programs.
-
----
-
-## 🛠️ Technology Stack
-
-| Layer | Technology |
+| Layer | What's Used |
 |---|---|
 | Frontend | Vanilla HTML5, CSS3 (custom properties), ES6+ JavaScript |
-| PWA | Service Worker, Web App Manifest |
-| Fonts | Google Fonts (Outfit, JetBrains Mono) |
-| Storage | Browser `localStorage` for session persistence |
+| PWA | Service Worker (`sw.js`), Web App Manifest (`manifest.json`) |
+| Fonts | Google Fonts — Outfit, JetBrains Mono |
+| Persistence | Browser `localStorage` |
 | Hosting | GitHub Pages |
 
-Zero frameworks. Zero dependencies. Zero build step. Just fast, lightweight, and offline-capable.
+No frameworks. No dependencies. No build step. Just a single `index.html` that does everything.
 
 ---
 
-## 🤝 Contributing
+## 📊 Who This Is For
 
-Contributions are warmly welcome! If you're an engineering student, educator, or developer, you can help by:
-
-- 📝 **Adding questions** to the question bank (`questions.js`)
-- 🐛 **Reporting bugs** via [GitHub Issues](https://github.com/neocortex3596/FluidsTechnology/issues)
-- 🌟 **Starring the repo** to help other students find it
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a pull request.
-
----
-
-## 📊 Who Is This For?
-
-- 🎓 **BS Mechatronics Engineering** students preparing for the PRC board exam
-- ⚙️ **BS Mechanical Engineering** students with Fluids Technology in their curriculum
-- 📚 **Self-learners** who want a free, structured way to study fluid power systems
-- 🏫 **Professors** looking for a supplemental digital reviewer for their students
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** — free to use, share, and modify. See [LICENSE](LICENSE) for details.
+- Engineering students with **Fluids Technology** or **Electro-Pneumatics** in their curriculum
+- Students who want an **offline-capable** reviewer they can install on their phone
+- Anyone who prefers **active recall and spaced repetition** over passive reading
+- Students who want to zero in on their weak areas instead of re-reading everything
 
 ---
 
 ## ⭐ Support the Project
 
-If HydroLMS helped you pass your board exam or ace your subject, please consider:
+If this app helped you study, the best things you can do are:
 
-- ⭐ **Starring this repository** on GitHub
-- 🔗 **Sharing the link** with your batchmates and engineering community
-- 🐛 **Filing issues** for bugs or question inaccuracies you spot
+- ⭐ **Star this repo** so other students can find it
+- 🔗 **Share the link** with your classmates and groupmates
+- 🐛 **Open an issue** if you spot a wrong answer or a bug
 
 > **App Link:** [https://neocortex3596.github.io/FluidsTechnology/](https://neocortex3596.github.io/FluidsTechnology/)
 
@@ -150,7 +115,7 @@ If HydroLMS helped you pass your board exam or ace your subject, please consider
 
 <div align="center">
 
-Made with 🧡 for Filipino engineering students.
+Made for engineering students who actually want to understand the material.
 
 *"Study smart. Review often. Pass with confidence."*
 
