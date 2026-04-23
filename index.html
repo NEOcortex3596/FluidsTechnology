@@ -48,7 +48,7 @@
   --r: 10px;
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; font-size:16px; }
+html { font-size:16px; }
 body {
   background:var(--bg); color:var(--text); font-family:var(--sans);
   min-height:100vh; line-height:1.6;
@@ -1293,6 +1293,9 @@ function getAdaptiveTarget() {
 //  START QUIZ (intercepts for breathe screen)
 // ═══════════════════════════════════════════════════════════
 function startQuiz() {
+  // 🟢 NEW: KILL the home screen layout immediately
+  document.getElementById('screen-home').style.display = 'none';
+
   let filtered = getFilteredQuestions();
   if(filtered.length === 0) return;
 
@@ -1986,11 +1989,19 @@ function endBrainBreak() {
 //  SHOW SCREEN
 // ═══════════════════════════════════════════════════════════
 function showScreen(id) {
+  // 1. Hide all screens
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
   
-  // 🟢 FORCES an instant teleport, killing the smooth slide animation
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  // 2. Activate the new screen
+  const target = document.getElementById(id);
+  if (target) target.classList.add("active");
+
+  // 3. 🟢 THE ULTIMATE SNAP (Forces browser to teleport instantly)
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'instant' 
+  });
 }
 
 // ═══════════════════════════════════════════════════════════
