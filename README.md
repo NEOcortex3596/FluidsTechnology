@@ -1,4 +1,4 @@
-# ⚗️ HydroLMS — MechroFluids | Fluids Technology & Electro-Pneumatics Reviewer
+# ⚗️ HydroLMS — MechroFluids | Fluid Technology Reviewer
 
 <div align="center">
 
