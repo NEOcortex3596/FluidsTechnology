@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Page Not Found | HydroLMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #070c18;
+    --s1: #0d1525;
+    --bdr: #1e2d46;
+    --amber: #f59e0b;
+    --amber-dim: rgba(245,158,11,.1);
+    --amber-glow: rgba(245,158,11,.2);
+    --cyan: #22d3ee;
+    --cyan-dim: rgba(34,211,238,.09);
+    --text: #dde8f7;
+    --muted: #6b86a8;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Outfit', sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 10% 5%, rgba(245,158,11,.04) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 90%, rgba(34,211,238,.04) 0%, transparent 60%);
+  }
+
+  /* Animated grid background */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(30,45,70,.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,45,70,.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridDrift 20s linear infinite;
+    z-index: 0;
+  }
+  @keyframes gridDrift {
+    from { transform: translateY(0); }
+    to   { transform: translateY(40px); }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px 24px;
+    max-width: 520px;
+  }
+
+  /* Big glitchy 404 */
+  .error-code {
+    font-family: var(--mono);
+    font-size: clamp(6rem, 22vw, 10rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--amber);
+    position: relative;
+    display: inline-block;
+    animation: flicker 4s infinite;
+    letter-spacing: -4px;
+  }
+  .error-code::before,
+  .error-code::after {
+    content: '404';
+    position: absolute;
+    inset: 0;
+    font-family: var(--mono);
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+  }
+  .error-code::before {
+    color: var(--cyan);
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    transform: translateX(-3px);
+    animation: glitch1 3s infinite;
+    opacity: 0.7;
+  }
+  .error-code::after {
+    color: #ef4444;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    transform: translateX(3px);
+    animation: glitch2 3s infinite;
+    opacity: 0.7;
+  }
+  @keyframes glitch1 {
+    0%, 90%, 100% { transform: translateX(-3px); opacity: .7; }
+    92%           { transform: translateX(6px);  opacity: 1;  }
+    94%           { transform: translateX(-6px); opacity: .5; }
+    96%           { transform: translateX(3px);  opacity: .7; }
+  }
+  @keyframes glitch2 {
+    0%, 90%, 100% { transform: translateX(3px);  opacity: .7; }
+    92%           { transform: translateX(-6px); opacity: 1;  }
+    94%           { transform: translateX(6px);  opacity: .5; }
+    96%           { transform: translateX(-3px); opacity: .7; }
+  }
+  @keyframes flicker {
+    0%, 95%, 100% { opacity: 1; }
+    96%           { opacity: .85; }
+    97%           { opacity: 1; }
+    98%           { opacity: .9; }
+  }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 4px;
+    color: var(--amber); text-transform: uppercase;
+    background: var(--amber-dim); border: 1px solid var(--amber-glow);
+    padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 20px; margin-top: 12px;
+  }
+
+  h1 {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  p {
+    color: var(--muted);
+    font-size: .95rem;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--amber), #d97706);
+    color: #000; font-size: .95rem; font-weight: 800;
+    border-radius: 10px; letter-spacing: .5px;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: all .22s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+    position: relative; overflow: hidden;
+  }
+  .btn::after {
+    content: '';
+    position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+    transform: skewX(-20deg); transition: left .5s;
+  }
+  .btn:hover::after { left: 130%; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(245,158,11,.35); }
+
+  .divider {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--bdr), transparent);
+    margin: 28px auto;
+  }
+
+  .hint {
+    font-family: var(--mono);
+    font-size: .65rem;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    opacity: .6;
+  }
+
+  /* Countdown */
+  .countdown {
+    font-family: var(--mono);
+    font-size: .72rem;
+    color: var(--cyan);
+    background: var(--cyan-dim);
+    border: 1px solid rgba(34,211,238,.2);
+    padding: 5px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 16px;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<div class="container">
+  <div class="error-code">404</div>
+
+  <div class="tag">⬡ PAGE NOT FOUND</div>
+
+  <h1>This page doesn't exist.</h1>
+  <p>The URL you followed might be broken, outdated, or never existed in the first place. But the app is still here — let's get you back.</p>
+
+  <a href="https://neocortex3596.github.io/FluidsTechnology/" class="btn">
+    ⬡ Back to HydroLMS
+  </a>
+
+  <div class="divider"></div>
+  <div class="hint">AUTO-REDIRECTING IN</div>
+  <div class="countdown" id="cd">10s</div>
+</div>
+
+<script>
+  let t = 10;
+  const el = document.getElementById('cd');
+  const iv = setInterval(() => {
+    t--;
+    el.textContent = t + 's';
+    if (t <= 0) {
+      clearInterval(iv);
+      window.location.href = 'https://neocortex3596.github.io/FluidsTechnology/';
+    }
+  }, 1000);
+</script>
+</body>
+</html>
