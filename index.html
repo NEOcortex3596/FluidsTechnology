@@ -583,6 +583,38 @@ button:focus-visible, .option-btn:focus-visible { outline:2px solid var(--amber)
 
 /* Quiz screen blur during brain break */
 #screen-quiz.blurred { filter:blur(6px); pointer-events:none; user-select:none; }
+
+/* ════════════════════════════════════
+   PWA INSTALL BUTTON
+════════════════════════════════════ */
+.install-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  animation: pulseCyan 2s infinite;
+}
+
+.install-btn:hover {
+  background: var(--cyan);
+  color: #000;
+}
+
+@keyframes pulseCyan {
+  0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(34, 211, 238, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
+}
 </style>
 </head>
 <body>
@@ -622,6 +654,14 @@ button:focus-visible, .option-btn:focus-visible { outline:2px solid var(--amber)
 <!-- ════════════════ HOME SCREEN ════════════════ -->
 <div id="screen-home" class="screen active" role="main" aria-label="Home Screen">
   <div class="hero">
+    <div class="hero-tag">⚙ Adaptive Learning · Spaced Repetition · Board-Exam Level</div>
+    <h1>Master <em>Fluids Technology</em><br>Before the Exam</h1>
+    <p>150 precision-engineered questions. Now with adaptive testing, spaced repetition, and cognitive pacing built in.</p>
+    
+    <button id="install-app-btn" class="install-btn" style="display: none;" aria-label="Install App">
+      ⬇️ Install App to Home Screen
+    </button>
+  </div>
     <div class="hero-tag">⚙ Adaptive Learning · Spaced Repetition · Board-Exam Level</div>
     <h1>Master <em>Fluids Technology</em><br>Before the Exam</h1>
     <p>150 precision-engineered questions. Now with adaptive testing, spaced repetition, and cognitive pacing built in.</p>
@@ -2062,14 +2102,53 @@ loadState();
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
-      .then(registration => {
-        console.log('ServiceWorker registered successfully');
-      })
-      .catch(err => {
-        console.log('ServiceWorker registration failed: ', err);
-      });
+      .then(reg => console.log('SW registered!', reg))
+      .catch(err => console.error('SW registration failed', err));
   });
 }
+
+// ═══════════════════════════════════════════════════════════
+//  FEATURE 7: CUSTOM PWA INSTALL BUTTON
+// ═══════════════════════════════════════════════════════════
+let deferredPrompt;
+const installAppBtn = document.getElementById('install-app-btn');
+
+// Listen for the browser's native install prompt
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later
+  deferredPrompt = e;
+  // Update UI to notify the user they can add to home screen
+  installAppBtn.style.display = 'inline-flex';
+});
+
+// When the user clicks your custom button
+installAppBtn.addEventListener('click', async () => {
+  if (deferredPrompt !== null) {
+    // Show the native install prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      console.log('User accepted the PWA prompt');
+    } else {
+      console.log('User dismissed the PWA prompt');
+    }
+    // We've used the prompt, and can't use it again, throw it away
+    deferredPrompt = null;
+    // Hide the button
+    installAppBtn.style.display = 'none';
+  }
+});
+
+// Hide the button if the app is successfully installed
+window.addEventListener('appinstalled', () => {
+  installAppBtn.style.display = 'none';
+  deferredPrompt = null;
+  console.log('PWA was installed');
+});
+
 </script>
 </body>
 </html>
