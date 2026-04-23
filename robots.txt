@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://neocortex3596.github.io/FluidsTechnology/sitemap.xml
