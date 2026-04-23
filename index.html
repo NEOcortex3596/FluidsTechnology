@@ -48,10 +48,20 @@
   --r: 10px;
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { font-size:16px; }
+html {
+  font-size: 16px;
+  height: 100%;
+  overflow: hidden; /* ROOT LOCK — window can never scroll */
+}
 body {
-  background:var(--bg); color:var(--text); font-family:var(--sans);
-  min-height:100vh; line-height:1.6;
+  height: 100%;
+  overflow: hidden; /* BODY LOCK */
+  display: flex;
+  flex-direction: column; /* Stack: pinned header → scrollable screen */
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
   background-image:
     radial-gradient(ellipse 80% 50% at 10% 5%, rgba(245,158,11,.04) 0%, transparent 60%),
     radial-gradient(ellipse 60% 40% at 90% 90%, rgba(34,211,238,.04) 0%, transparent 60%);
@@ -63,16 +73,25 @@ button { font-family:var(--sans); cursor:pointer; border:none; outline:none; }
 button:focus-visible, .option-btn:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
 
 /* ════════════════════════════════════
-   SCREENS
+   SCREENS — Independent Scroll Containers
 ════════════════════════════════════ */
-.screen { display:none; }
-.screen.active { display:block; }
+.screen {
+  display: none;
+  flex: 1;            /* Fill all viewport height below the header */
+  min-height: 0;      /* CRITICAL: lets flex child shrink so overflow-y works */
+  overflow-y: auto;   /* THIS element scrolls — the window never will */
+  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+  overscroll-behavior-y: contain;    /* Prevent scroll chaining to window */
+}
+.screen.active { display: block; }
 
 /* ════════════════════════════════════
-   STICKY HEADER
+   HEADER — Pinned flex child (no longer needs sticky)
 ════════════════════════════════════ */
 .hdr {
-  position:sticky; top:0; z-index:500;
+  position: relative; /* Flex layout keeps it at the top naturally */
+  flex-shrink: 0;     /* Header is always 54px; screens absorb remaining height */
+  z-index: 500;
   background:rgba(7,12,24,.93); border-bottom:1px solid var(--bdr);
   backdrop-filter:blur(18px); padding:0 24px; height:54px;
   display:flex; align-items:center; gap:14px;
@@ -664,10 +683,6 @@ button:focus-visible, .option-btn:focus-visible { outline:2px solid var(--amber)
       ⬇️ Install App to Home Screen
     </button>
   </div>
-    <div class="hero-tag">⚙ Adaptive Learning · Spaced Repetition · Board-Exam Level</div>
-    <h1>Master <em>Fluids Technology</em><br>Before the Exam</h1>
-    <p>150 precision-engineered questions. Now with adaptive testing, spaced repetition, and cognitive pacing built in.</p>
-  </div>
 
   <div class="stats-row" role="group" aria-label="Question bank statistics">
     <div class="stat-chip"><div class="stat-num">150</div><div class="stat-lbl">Questions</div></div>
@@ -1200,20 +1215,16 @@ function showBreatheScreen(onComplete) {
   const circle = document.getElementById("breathe-circle");
   const text   = document.getElementById("breathe-text");
   const sub    = document.getElementById("breathe-sub");
-
   text.style.opacity = "1";
   sub.style.opacity  = "1";
   text.textContent = "Inhale...";
   sub.textContent  = "Breathe in slowly and deeply";
-
   screen.classList.add("active");
   requestAnimationFrame(() => { setTimeout(() => screen.classList.add("visible"), 20); });
-
   // Restart CSS animation
   circle.classList.remove("animating");
   void circle.offsetWidth; // force reflow
   circle.classList.add("animating");
-
   // Exhale phase at 2s
   setTimeout(() => {
     text.style.opacity = "0"; sub.style.opacity = "0";
@@ -1223,7 +1234,6 @@ function showBreatheScreen(onComplete) {
       text.style.opacity = "1"; sub.style.opacity = "1";
     }, 350);
   }, 2000);
-
   // "You are prepared" at 3.4s
   setTimeout(() => {
     text.style.opacity = "0"; sub.style.opacity = "0";
@@ -1233,14 +1243,13 @@ function showBreatheScreen(onComplete) {
       text.style.opacity = "1"; sub.style.opacity = "1";
     }, 350);
   }, 3400);
-
-  // Hide at 4.8s, then call onComplete
+  // Hide at 4.8s — quiz renders behind the curtain, fade reveals it cleanly
   setTimeout(() => {
+    onComplete();
     screen.classList.remove("visible");
     setTimeout(() => {
       screen.classList.remove("active");
       circle.classList.remove("animating");
-      onComplete();
     }, 420);
   }, 4800);
 }
@@ -1293,9 +1302,6 @@ function getAdaptiveTarget() {
 //  START QUIZ (intercepts for breathe screen)
 // ═══════════════════════════════════════════════════════════
 function startQuiz() {
-  // 🟢 NEW: KILL the home screen layout immediately
-  document.getElementById('screen-home').style.display = 'none';
-
   let filtered = getFilteredQuestions();
   if(filtered.length === 0) return;
 
@@ -1320,12 +1326,7 @@ function startQuiz() {
 
   // BREATHE SCREEN → then launch quiz
   showBreatheScreen(() => {
-    
-    // 🟢 NEW FLASHCARD MODE LINES GO HERE:
-    document.getElementById('screen-home').style.display = 'none'; // Hide Home completely
-    window.scrollTo(0, 0); // Snap camera to the top
-    // ------------------------------------
-
+    // showScreen() handles all display switching and container snap internally.
     showScreen("screen-quiz");
     document.getElementById("hdr-score").classList.add("vis");
     document.getElementById("hdr-badge").textContent =
@@ -1342,6 +1343,12 @@ function startQuiz() {
 // ═══════════════════════════════════════════════════════════
 function renderQuestion() {
   if(!quizQuestions.length) return;
+
+  // ── FLASHCARD FIX: Snap container to top BEFORE any DOM mutation.
+  // With scrollTop already at 0, height changes cannot produce a scroll jump —
+  // there is no prior position for the browser to try to "maintain".
+  document.getElementById('screen-quiz').scrollTop = 0;
+
   const q     = quizQuestions[currentIdx];
   const total = totalQuestions || quizQuestions.length;
 
@@ -1458,7 +1465,6 @@ function renderQuestion() {
 
   // ── Nav ──
   document.getElementById("prev-btn").disabled = (currentIdx === 0) || leitnerMode;
-  window.scrollTo(0,0);
 }
 
 function isLastQuestion() {
@@ -1522,7 +1528,18 @@ function revealFullExplanation() {
   expHdr.textContent = "📖 Full Breakdown";
   expText.innerHTML  = `<span class="exp-full-label">🔍 STEP-BY-STEP</span>${fullExp}`;
   rb.style.display   = "none";
-  expText.scrollIntoView({behavior:"smooth", block:"nearest"});
+
+  // ASYNC-GHOST FIX: Scroll within the screen CONTAINER, not the window.
+  // Uses getBoundingClientRect so the calculation is always accurate.
+  // If the user presses Next before this finishes, renderQuestion()'s
+  // scrollTop = 0 synchronously cancels this animation — ghost eliminated.
+  const qs = document.getElementById('screen-quiz');
+  const containerRect = qs.getBoundingClientRect();
+  const elementRect   = expText.getBoundingClientRect();
+  qs.scrollTo({
+    top: qs.scrollTop + (elementRect.top - containerRect.top) - 80,
+    behavior: 'smooth'
+  });
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1588,6 +1605,11 @@ function handleAnswer(selectedIdx, btn) {
 //  NAVIGATION
 // ═══════════════════════════════════════════════════════════
 function nextQuestion() {
+  // FOCUS-HIJACK FIX: Release focus before DOM redraws. Without this, the browser
+  // scrolls to re-seat focus onto the newly injected option buttons.
+  if (document.activeElement && document.activeElement !== document.body) {
+    document.activeElement.blur();
+  }
   if(leitnerMode) { handleLeitnerAdvance(); return; }
 
   if(adaptiveMode) {
@@ -1609,6 +1631,10 @@ function nextQuestion() {
 
 function prevQuestion() {
   if(leitnerMode || currentIdx === 0) return;
+  // FOCUS-HIJACK FIX: same pattern as nextQuestion
+  if (document.activeElement && document.activeElement !== document.body) {
+    document.activeElement.blur();
+  }
   currentIdx--;
   renderQuestion();
 }
@@ -1725,6 +1751,7 @@ function confirmQuit()   { hideQuitModal(); showResults(); }
 function showResults() {
   stopPomodoroTimer();
   showScreen("screen-results");
+  document.getElementById("screen-results").scrollTop = 0;
   document.getElementById("hdr-score").classList.remove("vis");
   document.getElementById("leitner-complete-banner").style.display = "none";
   leitnerMode  = false;
@@ -1822,10 +1849,7 @@ function goHome() {
   document.getElementById("hdr-badge").textContent = `${QUESTIONS.length} Questions`;
   showScreen("screen-home");
   renderHome();
-
-  // 🟢 NEW: Bring the Home screen back to life from Flashcard Mode
-  document.getElementById('screen-home').style.display = 'block';
-  window.scrollTo(0, 0);
+  // showScreen() already snaps the container to top — no window.scrollTo needed.
 }
 
 function retakeQuiz() {
@@ -1989,19 +2013,16 @@ function endBrainBreak() {
 //  SHOW SCREEN
 // ═══════════════════════════════════════════════════════════
 function showScreen(id) {
-  // 1. Hide all screens
+  // 1. Deactivate all screens
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  
-  // 2. Activate the new screen
-  const target = document.getElementById(id);
-  if (target) target.classList.add("active");
 
-  // 3. 🟢 THE ULTIMATE SNAP (Forces browser to teleport instantly)
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: 'instant' 
-  });
+  // 2. Snap the target container to top BEFORE activating it (zero camera movement)
+  const target = document.getElementById(id);
+  if (target) {
+    target.scrollTop = 0;
+    target.classList.add("active");
+  }
+  // window.scrollTo is gone. The window is locked by CSS. It cannot scroll.
 }
 
 // ═══════════════════════════════════════════════════════════
